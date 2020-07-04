@@ -718,32 +718,27 @@ public interface UserAgent extends Serializable {
             return field.getConfidence();
         }
 
-        // FIXME: This can be implemented more efficiently (merge with Sorted variant)
-        private List<String> getAvailableFieldNames() {
-            List<String> resultSet = new ArrayList<>(allFields.size() + 10);
+        // FIXME: This can be implemented more efficiently
+        @Override
+        public List<String> getAvailableFieldNamesSorted() {
+            List<String> fieldNames = new ArrayList<>(allFields.size() + 10);
             if (wantedFieldNames == null) {
-                resultSet.addAll(STANDARD_FIELDS);
+                fieldNames.addAll(STANDARD_FIELDS);
             }
 
             allFields.forEach((fieldName, value) -> {
-                if (!resultSet.contains(fieldName)) {
+                if (!fieldNames.contains(fieldName)) {
                     AgentField field = allFields.get(fieldName);
                     if (field != null && !field.isDefaultValue()) {
                         if (wantedFieldNames == null || wantedFieldNames.contains(fieldName)) {
-                            resultSet.add(fieldName);
+                            fieldNames.add(fieldName);
                         }
                     }
                 }
             });
 
             // This is not a field; this is a special operator.
-            resultSet.remove(SET_ALL_FIELDS);
-            return resultSet;
-        }
-
-        @Override
-        public List<String> getAvailableFieldNamesSorted() {
-            List<String> fieldNames = new ArrayList<>(getAvailableFieldNames());
+            fieldNames.remove(SET_ALL_FIELDS);
 
             List<String> result = new ArrayList<>();
             for (String fieldName : PRE_SORTED_FIELDS_LIST) {

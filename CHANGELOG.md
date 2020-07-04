@@ -10,6 +10,8 @@ v5.19-SNAPSHOT
   - Elastic Search/Logstash 7.8.0
 - Build
   - Improved support for building using JDK 11
+  - Yauaa now requires JDK 11 or newer to build, the result will still run on JRE 8.
+  - Allow using Yauaa as a Java 9+ module.
 
 v5.18
 ===

@@ -302,7 +302,7 @@ public final class Main {
         System.exit(returnValue);
     }
 
-    @SuppressWarnings({"PMD.ImmutableField", "CanBeFinal", "unused"})
+    @SuppressWarnings({"PMD.ImmutableField", "CanBeFinal", "unused", "FieldMayBeFinal"})
     private static class CommandOptions {
         @Option(name = "-ua", usage = "A single useragent string", forbids = {"-in"})
         private String useragent = null;
